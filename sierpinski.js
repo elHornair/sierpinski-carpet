@@ -4,15 +4,17 @@ var sierpinski = (function () {
 
     var context,
         colors = [
-            '9FEE00',
-            '86B32D',
-            '679B00',
-            'B9F73E',
-            'C9F76F'
+            [ '9FEE00', '86B32D', '679B00', 'B9F73E', 'C9F76F' ],
+            [ '1240AB', '2A4480', '06266F', '4671D5', '6C8CD5' ],
+            [ 'CD0074', '992667', '85004B', 'E6399B', 'E667AF' ],
+            [ 'FF0000', 'BF3030', 'A60000', 'FF4040', 'FF7373' ],
+            [ 'FFFF00', 'BFBF30', 'A6A600', 'FFFF40', 'FFFF73' ],
+            [ 'FF8900', 'BF7D30', 'A65900', 'FFA640', 'FFBE73' ]
         ],
+        colorIndex = Math.round(Math.random() * (colors.length - 1)),
 
         setColor = function (i) {
-            context.fillStyle = colors[(i - 1) % colors.length];
+            context.fillStyle = colors[colorIndex][(i - 1) % colors.length];
         },
 
         drawCarpet = function (x, y, w, h, iteration) {
