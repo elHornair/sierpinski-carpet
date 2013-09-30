@@ -3,6 +3,8 @@ var sierpinski = (function () {
     "use strict";
 
     var context,
+        fullWidth,
+        fullHeight,
         colors = [
             [ '9FEE00', '86B32D', '679B00', 'B9F73E', 'C9F76F' ],
             [ '1240AB', '2A4480', '06266F', '4671D5', '6C8CD5' ],
@@ -11,7 +13,7 @@ var sierpinski = (function () {
             [ 'FFFF00', 'BFBF30', 'A6A600', 'FFFF40', 'FFFF73' ],
             [ 'FF8900', 'BF7D30', 'A65900', 'FFA640', 'FFBE73' ]
         ],
-        colorIndex = Math.round(Math.random() * (colors.length - 1)),
+        colorIndex,
 
         setColor = function (i) {
             context.fillStyle = colors[colorIndex][(i - 1) % colors.length];
@@ -37,16 +39,12 @@ var sierpinski = (function () {
             }
         },
 
-        init = function () {
-            var canvas = document.getElementById('myCanvas'),
-                fullWidth = canvas.width,
-                fullHeight = canvas.height,
-                iterationCounter = 1,
+        startAnimation = function () {
+            var iterationCounter = 1,
                 iterationThreshold = (Math.log(1 / fullWidth) / Math.log(1 / 3)),
                 myInterval;
 
-            context = canvas.getContext('2d');
-
+            colorIndex = Math.round(Math.random() * (colors.length - 1));
             setColor(iterationCounter);
             drawCarpet(0, 0, fullWidth, fullHeight, iterationCounter);
 
@@ -57,12 +55,23 @@ var sierpinski = (function () {
 
                 if (iterationCounter > iterationThreshold) {
                     window.clearInterval(myInterval);
+                    startAnimation();
                     return;
                 }
 
                 setColor(iterationCounter);
                 drawCarpet(0, 0, fullWidth, fullHeight, iterationCounter);
             }, 800);
+        },
+
+        init = function () {
+            var canvas = document.getElementById('myCanvas');
+
+            fullWidth = canvas.width;
+            fullHeight = canvas.height;
+            context = canvas.getContext('2d');
+
+            startAnimation();
         };
 
     init();
