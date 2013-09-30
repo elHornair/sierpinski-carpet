@@ -1,4 +1,4 @@
-/*global document*/
+/*global window, document*/
 var sierpinski = (function () {
     "use strict";
 
@@ -25,11 +25,28 @@ var sierpinski = (function () {
         },
 
         init = function () {
+            var initialWidth = 400,
+                initialHeight = 400,
+                iterationCounter = 1,
+                iterationThreshold = (Math.log(1 / initialWidth) / Math.log(1 / 3)),
+                myInterval;
+
             context = document.getElementById('myCanvas').getContext('2d');
             context.fillStyle = '#ccc';
-            drawCarpet(0, 0, 400, 400, 1);
-            drawCarpet(0, 0, 400, 400, 2);
-            drawCarpet(0, 0, 400, 400, 3);
+
+            drawCarpet(0, 0, initialWidth, initialHeight, iterationCounter);
+
+            // iteration
+            myInterval = window.setInterval(function () {
+                iterationCounter += 1;
+
+                if (iterationCounter > iterationThreshold) {
+                    window.clearInterval(myInterval);
+                    return;
+                }
+
+                drawCarpet(0, 0, 400, 400, iterationCounter);
+            }, 500);
         };
 
     init();
