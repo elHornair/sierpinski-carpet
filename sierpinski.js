@@ -25,16 +25,17 @@ var sierpinski = (function () {
         },
 
         init = function () {
-            var initialWidth = 400,
-                initialHeight = 400,
+            var canvas = document.getElementById('myCanvas'),
+                fullWidth = canvas.width,
+                fullHeight = canvas.height,
                 iterationCounter = 1,
-                iterationThreshold = (Math.log(1 / initialWidth) / Math.log(1 / 3)),
+                iterationThreshold = (Math.log(1 / fullWidth) / Math.log(1 / 3)),
                 myInterval;
 
-            context = document.getElementById('myCanvas').getContext('2d');
-            context.fillStyle = '#ccc';
+            context = canvas.getContext('2d');
+            context.fillStyle = '#FF6666';
 
-            drawCarpet(0, 0, initialWidth, initialHeight, iterationCounter);
+            drawCarpet(0, 0, fullWidth, fullHeight, iterationCounter);
 
             // iteration
             myInterval = window.setInterval(function () {
@@ -45,8 +46,8 @@ var sierpinski = (function () {
                     return;
                 }
 
-                drawCarpet(0, 0, 400, 400, iterationCounter);
-            }, 500);
+                drawCarpet(0, 0, fullWidth, fullHeight, iterationCounter);
+            }, 800);
         };
 
     init();
