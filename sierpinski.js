@@ -3,6 +3,17 @@ var sierpinski = (function () {
     "use strict";
 
     var context,
+        colors = [
+            '9FEE00',
+            '86B32D',
+            '679B00',
+            'B9F73E',
+            'C9F76F'
+        ],
+
+        setColor = function (i) {
+            context.fillStyle = colors[(i - 1) % colors.length];
+        },
 
         drawCarpet = function (x, y, w, h, iteration) {
             var i;
@@ -33,12 +44,13 @@ var sierpinski = (function () {
                 myInterval;
 
             context = canvas.getContext('2d');
-            context.fillStyle = '#FF6666';
 
+            setColor(iterationCounter);
             drawCarpet(0, 0, fullWidth, fullHeight, iterationCounter);
 
             // iteration
             myInterval = window.setInterval(function () {
+                context.fillStyle = colors[iterationCounter];
                 iterationCounter += 1;
 
                 if (iterationCounter > iterationThreshold) {
@@ -46,6 +58,7 @@ var sierpinski = (function () {
                     return;
                 }
 
+                setColor(iterationCounter);
                 drawCarpet(0, 0, fullWidth, fullHeight, iterationCounter);
             }, 800);
         };
