@@ -1,22 +1,16 @@
+/*global document*/
 var sierpinski = (function () {
+    "use strict";
 
     var context,
 
-        init = function () {
-            context = document.getElementById('myCanvas').getContext('2d');
-            context.fillStyle='#ccc';
-            drawCarpet(0, 0, 400, 400);
-        },
+        drawCarpet = function (x, y, w, h) {
+            var i;
 
-        drawCarpet = function (x, y, width, height) {
-            var w,
-                h,
-                i;
+            if (w >= 3 && h >= 3) {
 
-            if (width >= 3 && height >= 3) {
-
-                w = width / 3;
-                h = height / 3;
+                w = w / 3;
+                h = h / 3;
 
                 context.fillRect(x + w, y + h, w, h);
 
@@ -26,7 +20,12 @@ var sierpinski = (function () {
                     }
                 }
             }
+        },
 
+        init = function () {
+            context = document.getElementById('myCanvas').getContext('2d');
+            context.fillStyle = '#ccc';
+            drawCarpet(0, 0, 400, 400);
         };
 
     init();
